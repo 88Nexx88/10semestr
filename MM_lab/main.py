@@ -59,5 +59,5 @@ for i in range(m):
 for x, i in enumerate(pi):
     # print(tabulate([[f"ПАРАМЕТР.{x + 1}"], [f'Значение {itog[x]}'], [f'Минимум => {min(i)}'], [f'Максимум => {max(i)}'], [f'Среднее=> {mean(i)}'], [f'Медиана=> {median(i)}']], tablefmt="simple"))
     print(tabulate([[f"ПАРАМЕТР.{x + 1}"], [f'Значение {itog[x]}'],
-                    [f'Среднее=> {mean(i)}'], [f'Медиана=> {median(i)}']], tablefmt="simple"))
+                    [f'Среднее=> {mean(i)}'], [f'Медиана=> {median(i)}'], [f'мин => {min(i)} макс => {max(i)}']], tablefmt="simple"))
     # print(f"ПАР.{x + 1} мин => {min(i)} макс => {max(i)} ср=> {mean(i)} медиана=> {median(i)}")

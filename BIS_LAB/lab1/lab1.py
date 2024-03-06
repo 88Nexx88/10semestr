@@ -24,6 +24,14 @@ for s in range(len(data1_)):
     peres_.append(row)
 peres = pd.DataFrame(peres_, columns=(range(1, len(peres_[0])+1)), index=(range(1, len(peres_)+1)))
 peres['comp'] = peres.sum(axis=1)
+columns = peres.columns.tolist()
+sums = [peres[column].sum() for column in columns]
+
+# Создание новой строки с результатами суммирования:
+new_row = pd.Series({column: sums[i] for i, column in enumerate(columns)})
+
+# Добавление новой строки в DataFrame:
+peres.loc['comp'] = new_row
 print(peres)
 
 print()
@@ -39,6 +47,12 @@ for s in range(len(data1_)):
 obedin = pd.DataFrame(obedin_, columns=(range(1, len(obedin_[0])+1)), index=(range(1, len(obedin_)+1)))
 
 obedin['comp'] = obedin.sum(axis=1)
+columns = obedin.columns.tolist()
+sums = [obedin[column].sum() for column in columns]
+# Создание новой строки с результатами суммирования:
+new_row = pd.Series({column: sums[i] for i, column in enumerate(columns)})
+obedin.loc['comp'] = new_row
+
 print(obedin)
 print()
 print('''
@@ -49,6 +63,11 @@ obrash_ = np.matrix.transpose(data1_)
 obrash_1 = pd.DataFrame(obrash_, columns=(range(1, len(obrash_[0])+1)), index=(range(1, len(obrash_)+1)))
 print('data1')
 obrash_1['comp'] = obrash_1.sum(axis=1)
+columns = obrash_1.columns.tolist()
+sums = [obrash_1[column].sum() for column in columns]
+# Создание новой строки с результатами суммирования:
+new_row = pd.Series({column: sums[i] for i, column in enumerate(columns)})
+obrash_1.loc['comp'] = new_row
 print(obrash_1)
 
 
@@ -56,35 +75,58 @@ obrash_ = np.matrix.transpose(data2_)
 print('data2')
 obrash_2 = pd.DataFrame(obrash_, columns=(range(1, len(obrash_[0])+1)), index=(range(1, len(obrash_)+1)))
 obrash_2['comp'] = obrash_2.sum(axis=1)
+columns = obrash_2.columns.tolist()
+sums = [obrash_2[column].sum() for column in columns]
+# Создание новой строки с результатами суммирования:
+new_row = pd.Series({column: sums[i] for i, column in enumerate(columns)})
+obrash_2.loc['comp'] = new_row
 print(obrash_2)
 
 print('''
 1.4.	Композицию отношений.
 В рамках поставленной задачи анализа уязвимостей ИС и угроз ИБ композиция имеет следующее практическое применение и вариации формул:
 –	«Уязвимость – угроза – уязвимость». Позволяет выявить те пары уязвимостей, которые могут быть использованы злоумышленником совместно.
-–	«Угроза – уязвимость ¬– угроза». Позволяет выявить те пары угроз, которые могут возникать совместно.
 ''')
 kompoz_1 = []
 for i in range(len(data1_)):
     row = []
-    for j in range(len(data1_)):
-        row.append(data1_[i][j] * obrash_2.values[i][j])
+    for j in range(len(obrash_2)-2):
+        all = []
+        for k in range(len(data1_)):
+            all.append(max(data1_[i][k], obrash_2.values[j][k]))
+        row.append(max(all))
     kompoz_1.append(row)
 
 
 kompoz_1_ = pd.DataFrame(kompoz_1, columns=(range(1, len(kompoz_1[0])+1)), index=(range(1, len(kompoz_1)+1)))
 kompoz_1_['comp'] = kompoz_1_.sum(axis=1)
+columns = kompoz_1_.columns.tolist()
+sums = [kompoz_1_[column].sum() for column in columns]
+# Создание новой строки с результатами суммирования:
+new_row = pd.Series({column: sums[i] for i, column in enumerate(columns)})
+kompoz_1_.loc['comp'] = new_row
 print(kompoz_1_)
 print()
 
+print('''
+–	«Угроза – уязвимость ¬– угроза». Позволяет выявить те пары угроз, которые могут возникать совместно.
+''')
 kompoz_2 = []
-for i in range(len(data2_)):
+for i in range(len(obrash_1)-1):
     row = []
-    for j in range(len(data2_)):
-        row.append(data2_[i][j] * obrash_1.values[i][j])
+    for j in range(len(data1_[0])):
+        all = []
+        for k in range(len(data2_)):
+            all.append(max(data2_[k][i], obrash_1.values[j][k]))
+        row.append(max(all))
     kompoz_2.append(row)
 kompoz_2_ = pd.DataFrame(kompoz_2, columns=(range(1, len(kompoz_2[0])+1)), index=(range(1, len(kompoz_2)+1)))
 kompoz_2_['comp'] = kompoz_2_.sum(axis=1)
+columns = kompoz_2_.columns.tolist()
+sums = [kompoz_2_[column].sum() for column in columns]
+# Создание новой строки с результатами суммирования:
+new_row = pd.Series({column: sums[i] for i, column in enumerate(columns)})
+kompoz_2_.loc['comp'] = new_row
 print(kompoz_2_)
 # все 0 нет связей
 
@@ -102,6 +144,12 @@ for s in range(len(data1_)):
     dopol_.append(row)
 dopol = pd.DataFrame(dopol_, columns=(range(1, len(dopol_[0])+1)), index=(range(1, len(dopol_)+1)))
 dopol['comp'] = dopol.sum(axis=1)
+columns = dopol.columns.tolist()
+sums = [dopol[column].sum() for column in columns]
+# Создание новой строки с результатами суммирования:
+new_row = pd.Series({column: sums[i] for i, column in enumerate(columns)})
+dopol.loc['comp'] = new_row
+
 print(dopol)
 
 print('''
@@ -118,4 +166,9 @@ dvoy_ = np.matrix.transpose(np.array(dvoy_))
 
 dvoy = pd.DataFrame(dvoy_, columns=(range(1, len(dvoy_[0])+1)), index=(range(1, len(dvoy_)+1)))
 dvoy['comp'] = dvoy.sum(axis=1)
+columns = dvoy.columns.tolist()
+sums = [dvoy[column].sum() for column in columns]
+# Создание новой строки с результатами суммирования:
+new_row = pd.Series({column: sums[i] for i, column in enumerate(columns)})
+dvoy.loc['comp'] = new_row
 print(dvoy)
