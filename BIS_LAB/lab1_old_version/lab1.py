@@ -87,16 +87,8 @@ print('''
 В рамках поставленной задачи анализа уязвимостей ИС и угроз ИБ композиция имеет следующее практическое применение и вариации формул:
 –	«Уязвимость – угроза – уязвимость». Позволяет выявить те пары уязвимостей, которые могут быть использованы злоумышленником совместно.
 ''')
-kompoz_1 = []
-for i in range(len(data1_)):
-    row = []
-    for j in range(len(obrash_2)-2):
-        all = []
-        for k in range(len(data1_)):
-            all.append(max(data1_[i][k], obrash_2.values[j][k]))
-        row.append(max(all))
-    kompoz_1.append(row)
-
+print(data1_, '\n',obrash_2.values[0:-1, : -1])
+kompoz_1 = np.dot(data1_, obrash_2.values[0:-1, : -1])
 
 kompoz_1_ = pd.DataFrame(kompoz_1, columns=(range(1, len(kompoz_1[0])+1)), index=(range(1, len(kompoz_1)+1)))
 kompoz_1_['comp'] = kompoz_1_.sum(axis=1)
@@ -111,15 +103,7 @@ print()
 print('''
 –	«Угроза – уязвимость ¬– угроза». Позволяет выявить те пары угроз, которые могут возникать совместно.
 ''')
-kompoz_2 = []
-for i in range(len(obrash_1)-1):
-    row = []
-    for j in range(len(data1_[0])):
-        all = []
-        for k in range(len(data2_)):
-            all.append(max(data2_[k][i], obrash_1.values[j][k]))
-        row.append(max(all))
-    kompoz_2.append(row)
+kompoz_2 = np.dot(data2_, obrash_1)
 kompoz_2_ = pd.DataFrame(kompoz_2, columns=(range(1, len(kompoz_2[0])+1)), index=(range(1, len(kompoz_2)+1)))
 kompoz_2_['comp'] = kompoz_2_.sum(axis=1)
 columns = kompoz_2_.columns.tolist()
