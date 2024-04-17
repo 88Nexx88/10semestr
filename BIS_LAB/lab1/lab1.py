@@ -54,14 +54,14 @@ print('1.4.	Композицию отношений.')
 print('«Уязвимость – угроза – уязвимость»')
 print('Позволяет выявить те пары уязвимостей, которые могут быть использованы злоумышленником совместно.\n')
 print(composition_calculation_2(set_1, reversal_calculation(set_2)))
-print_stat(composition_calculation(set_1, reversal_calculation(set_2)))
+print_stat(composition_calculation_2(set_1, reversal_calculation(set_2)))
 # –	«Угроза – уязвимость – угроза».
 # Позволяет выявить те пары угроз, которые могут возникать совместно.
 # Размерность матрицы результата становится - nxn.
 print('«Угроза – уязвимость ¬– угроза»')
 print('Позволяет выявить те пары угроз, которые могут возникать совместно.\n')
 print(composition_calculation_2(reversal_calculation(set_1), set_2))
-# print_stat(composition_calculation(reversal_calculation(set_1), set_2))
+print_stat(composition_calculation_2(reversal_calculation(set_1), set_2))
 print()
 
 print('2. Для первого отношения ')
