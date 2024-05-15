@@ -146,8 +146,8 @@ class CalcSimilar():
             for i in range(length):
                 for j in range(i + 1, length):
                     dist = clusters[i].get_distance(clusters[j], self.type_calc, False)
-                    if dist < min_distance and (
-                            len(clusters[i].objects) + len(clusters[j].objects) <= self.max_len_cluster):
+                    if (dist < min_distance and (
+                            len(clusters[i].objects) + len(clusters[j].objects) <= self.max_len_cluster)):
                         min_distance = dist
                         closest_clusters = (i, j)
             if min_distance == float('inf'):

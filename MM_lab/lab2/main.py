@@ -98,7 +98,7 @@ for group in range(len(f_an)):
             # print(f'Пара {key} встретились в {val} видах')
             if val == len(f_an[group]):
                 sum_+=1
-    print(f'Число стабильно устойчивых пар объектов {sum_}')
+    print(f'Число стабильно устойчивых пар объектов {sum_} для метода {methods_union.split(",")[group]}')
 
 print(an[1])
 for group in range(len(s_an)):
@@ -115,7 +115,7 @@ for group in range(len(s_an)):
             # print(f'Пара {key} встретились в {val} видах')
             if val == len(s_an[group]):
                 sum_ += 1
-    print(f'Число стабильно устойчивых пар объектов {sum_}')
+    print(f'Число стабильно устойчивых пар объектов {sum_} для метода {methods_similar.split(",")[group]}')
 
 print(an[2])
 result = { x:0 for x in comb}
