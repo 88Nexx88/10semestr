@@ -51,7 +51,6 @@ def calculation_mechanism_quality_indicators():
         for i in value.values():
             _yk.append(i.value)
             _ok.append(importance_coefficients_map[i.pp].value)
-
         yield [key, mechanism_names[i.mechanism_number], _mechanism_quality_calculation(_ok, _yk)]
 
 
