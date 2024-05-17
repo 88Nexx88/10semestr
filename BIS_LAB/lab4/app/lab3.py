@@ -401,12 +401,15 @@ def calc2(files_dir):
                             min_j = key
                             min = m_ugroz.loc[i].loc[j]
                             break
-            print(min_j, i, min)
+            if i == '':
+                continue
             groups[min_j] = numpy.append(groups[min_j], i)
+
     m_pred_group = pd.DataFrame(data=groups.values(), index=groups.keys())
     print(m_pred_group)
     m_pred_group = m_pred_group.fillna('')
-
     answer = View.View(m_pred_group, 'm_pred_group2.html')
-    return answer
+
+
+    return m_pred_group
     # webbrowser.open(View.View(m_pred_group, 'm_pred_group2.html'))
