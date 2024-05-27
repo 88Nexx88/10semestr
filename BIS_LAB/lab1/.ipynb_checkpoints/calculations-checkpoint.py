@@ -36,5 +36,5 @@ def dual_relation_calculation(set_: np.ndarray) -> np.ndarray:
 
 def print_stat(set_: np.ndarray):
     # print('sum columns \t', set_.sum(0), '=> ', sum(set_.sum(0)))
-    print('Сумма для анализа: ', set_.sum(0), ', общая сумма: ', sum(set_.sum(1)))
+    print('Сумма для анализа: ', set_.sum(0), ', общая сумма: ', sum(set_.sum(0)))
     # print('sum rows \t\t', set_.sum(1), '=> ', sum(set_.sum(1)))
