@@ -477,5 +477,5 @@ def calc1(files_dir):
             data.append([count, last_rang_price[rang_ir['Ранг'].iloc[count - 1]]])
         count+=1
 
-    answer = tabulate.tabulate(tabular_data=data, headers=['ИР', 'Стоимость'], tablefmt='grid')
+    answer = pd.DataFrame(data=data, columns=['ИР', 'Стоимость'])
     return answer

@@ -4,11 +4,19 @@ from calculations import calculation_mechanism_quality_indicators, calculation_p
 from data_converters import limit_sufficiency_konf, limit_sufficiency_integrity_soi, limit_sufficiency_availability, \
     limit_sufficiency_integrity
 
+import flet as ft
 def calc3(file_dir):
+    all_table = []
     answer = ''
     print('\n\t\t\t Показатели качества механизмов')
     mechanism_quality_indicators = list(calculation_mechanism_quality_indicators())
     print(tabulate(mechanism_quality_indicators, tablefmt="grid"))
+
+    all_table.append([ft.DataColumn(ft.Text(header)) for header in ['Номер', 'Показатели качества механизмов', 'Значение']])
+    rows = []
+    for row in mechanism_quality_indicators:
+        rows.append(ft.DataRow(cells=[ft.DataCell(ft.Text(r)) for r in row]))
+    all_table.append(rows)
     answer+='\n\t\t\t Показатели качества механизмов\n'
     answer+=tabulate(mechanism_quality_indicators, tablefmt="grid")
     answer+='\n'
@@ -28,6 +36,17 @@ def calc3(file_dir):
         mechanism_quality_indicators_values,
         limit_sufficiency_konf,
     ), tablefmt="grid")
+
+    all_table.append(
+        [ft.DataColumn(ft.Text(header)) for header in ['Номер', 'Вероятность реализации угроз конфиденциальности', 'Значение']])
+    rows = []
+    for row in calculation_probabilities_threat_realization(
+        mechanism_quality_indicators_values,
+        limit_sufficiency_konf,
+    ):
+        rows.append(ft.DataRow(cells=[ft.DataCell(ft.Text(r)) for r in row]))
+    all_table.append(rows)
+
     #
     # Расчет вероятностей реализации угроз целостности
     #
@@ -42,6 +61,18 @@ def calc3(file_dir):
         mechanism_quality_indicators_values,
         limit_sufficiency_integrity,
     ), tablefmt="grid")
+
+    all_table.append(
+        [ft.DataColumn(ft.Text(header)) for header in
+         ['Номер', 'Вероятность реализации угроз целостности', 'Значение']])
+    rows = []
+    for row in calculation_probabilities_threat_realization(
+        mechanism_quality_indicators_values,
+        limit_sufficiency_integrity,
+    ):
+        rows.append(ft.DataRow(cells=[ft.DataCell(ft.Text(r)) for r in row]))
+    all_table.append(rows)
+
     answer+='\n'
     #
     # Расчет вероятностей реализации угроз доступности
@@ -57,6 +88,23 @@ def calc3(file_dir):
         mechanism_quality_indicators_values,
         limit_sufficiency_availability,
     ), tablefmt="grid")
+
+    answer += tabulate(calculation_probabilities_threat_realization(
+        mechanism_quality_indicators_values,
+        limit_sufficiency_integrity,
+    ), tablefmt="grid")
+
+    all_table.append(
+        [ft.DataColumn(ft.Text(header)) for header in
+         ['Номер', 'Вероятность реализации угроз доступности', 'Значение']])
+    rows = []
+    for row in calculation_probabilities_threat_realization(
+        mechanism_quality_indicators_values,
+        limit_sufficiency_integrity,
+    ):
+        rows.append(ft.DataRow(cells=[ft.DataCell(ft.Text(r)) for r in row]))
+    all_table.append(rows)
+
     answer+='\n'
     #
     # Расчет вероятностей реализации угроз целостности СОИ.
@@ -72,5 +120,17 @@ def calc3(file_dir):
         limit_sufficiency_integrity_soi,
     ), tablefmt="grid"))
     answer+='\n'
-    return answer
+
+    all_table.append(
+        [ft.DataColumn(ft.Text(header)) for header in
+         ['Номер', 'Вероятность реализации угроз целостности СОИ', 'Значение']])
+    rows = []
+    for row in calculation_probabilities_threat_realization(
+        mechanism_quality_indicators_values,
+        limit_sufficiency_integrity_soi,
+    ):
+        rows.append(ft.DataRow(cells=[ft.DataCell(ft.Text(r)) for r in row]))
+    all_table.append(rows)
+
+    return all_table
 
